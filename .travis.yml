@@ -1,0 +1,10 @@
+language: go
+
+jobs:
+  include:
+    - stage: format code
+      script: go fmt
+    - stage: examine
+      sciprt: go vet
+    - stage: unit tests
+      script: go test -v
