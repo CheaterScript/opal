@@ -1,34 +1,20 @@
 package main
 
 import (
-	"fmt"
-	"sort"
-	"sync"
+	// "io"
+	"log"
+	// "net/http"
+	// "fmt"
+	"github.com/luozan/opal/websocket"
 )
 
-var wg *sync.WaitGroup = &sync.WaitGroup{}
-
-type Window struct {
-	start int
-	end   int
-}
-
-func findMedianSortedArrays(nums1 []int, nums2 []int) {
-	nums := append(nums1, nums2...)
-	sort.Sort(sort.IntSlice(nums))
-	fmt.Println("fuck you.")
-	wg.Done()
-}
-
-func Max(a int, b int) int {
-	if a < b {
-		return b
-	}
-	return a
-}
-
 func main() {
-	wg.Add(1)
-	go findMedianSortedArrays([]int{1, 2}, []int{3, 5})
-	wg.Wait()
+	// http.HandleFunc("/", func(w http.ResponseWriter, req *http.Request) {
+	// 	header := req.Header
+	// 	log.Println(req)
+	// 	log.Println(header)
+	// 	io.WriteString(w, "xxxxxxxxxxxxxx")
+	// })
+	// http.ListenAndServe(":80", nil)
+	log.Println(websocket.SecWebsocketAccept("dGhlIHNhbXBsZSBub25jZQ=="))
 }
