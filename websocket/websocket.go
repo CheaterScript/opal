@@ -1,5 +1,0 @@
-package Websocket
-
-import (
-	"net"
-)
