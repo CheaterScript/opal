@@ -16,11 +16,16 @@ func main() {
 			w.WriteHeader(200)
 			return
 		}
-		key := websocket.SecWebsocketAccept(header["Sec-Websocket-Key"][0])
-		w.Header().Set("Upgrade", "websocket")
-		w.Header().Set("Connection", "Upgrade")
-		w.Header().Set("Sec-WebSocket-Accept", key)
-		w.WriteHeader(101)
+		tcpConn, rBuf, err := websocket.Hijack(w)
+		fmt.Println(tcpConn, rBuf, err)
+		responseHeader := websocket.GenResponseHeader(header["Sec-Websocket-Key"][0])
+		fmt.Println(tcpConn, responseHeader)
+		tcpConn.Write(responseHeader);
 	})
+
 	http.ListenAndServe(":80", nil)
+}
+
+func Recv(c) {
+
 }
