@@ -8,10 +8,20 @@ import (
 	"net/http"
 )
 
-type Socket struct {
+type Sokcet interface {
+	Recv() void
+}
+
+type Websocket struct {
 	conn net.Conn
 }
 
+func (socket *Websocket) Recv() {
+	buf := make([]byte, 6144)
+	for{
+		socket.conn.Read()
+	}
+}
 
 func SecWebsocketAccept(key string) string {
 	const MAGIC_STRING = "258EAFA5-E914-47DA-95CA-C5AB0DC85B11"
