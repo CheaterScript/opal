@@ -21,6 +21,8 @@ func main() {
 		responseHeader := websocket.GenResponseHeader(header["Sec-Websocket-Key"][0])
 		fmt.Println(tcpConn, responseHeader)
 		tcpConn.Write(responseHeader);
+		socket := websocket.New(tcpConn)
+		go socket.Recv()
 	})
 
 	http.ListenAndServe(":80", nil)
