@@ -4,24 +4,53 @@ import (
 	"bufio"
 	"crypto/sha1"
 	"encoding/base64"
+	"fmt"
 	"net"
 	"net/http"
 )
 
+const (
+	MAX_READ_BUFFER_SIZE = 8192
+)
+
 type Sokcet interface {
-	Recv() void
+	Recv()
+	Send() error
+	Ping() (int, error)
 }
 
 type Websocket struct {
 	conn net.Conn
 }
 
+func New(conn net.Conn) *Websocket {
+	return &Websocket{conn }
+}
+
 func (socket *Websocket) Recv() {
-	buf := make([]byte, 6144)
-	for{
-		socket.conn.Read()
+	buf := make([]byte, MAX_READ_BUFFER_SIZE)
+	for {
+		n, err := socket.conn.Read(buf)
+		if err == nil {
+			fmt.Println("It's a data.")
+			fmt.Println(buf, n)
+			socket.Send(buf[:n])
+		}else{
+			fmt.Println(err)
+		}
 	}
 }
+
+func (socket *Websocket) Ping() (int, error) {
+	conn := socket.conn
+	return conn.Write([]byte{})
+}
+
+func (socket *Websocket) Send(data []byte) (int, error){
+	return socket.conn.Write(data)
+}
+
+func (socket *Websocket) 
 
 func SecWebsocketAccept(key string) string {
 	const MAGIC_STRING = "258EAFA5-E914-47DA-95CA-C5AB0DC85B11"
