@@ -13,7 +13,7 @@ const (
 	MAX_READ_BUFFER_SIZE = 8192
 )
 
-type Sokcet interface {
+type Socket interface {
 	Recv()
 	Send() error
 	Ping() (int, error)
@@ -49,8 +49,6 @@ func (socket *Websocket) Ping() (int, error) {
 func (socket *Websocket) Send(data []byte) (int, error){
 	return socket.conn.Write(data)
 }
-
-func (socket *Websocket) 
 
 func SecWebsocketAccept(key string) string {
 	const MAGIC_STRING = "258EAFA5-E914-47DA-95CA-C5AB0DC85B11"
