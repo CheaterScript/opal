@@ -28,6 +28,6 @@ func main() {
 	http.ListenAndServe(":80", nil)
 }
 
-func Recv(socket websocket.Sokcet) {
+func Recv(socket websocket.Socket) {
 
 }
